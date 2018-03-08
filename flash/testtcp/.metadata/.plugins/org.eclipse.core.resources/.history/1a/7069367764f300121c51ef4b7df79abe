@@ -1,0 +1,45 @@
+/**
+ * ============================================================================
+ * @file    AsynTcpSocketEvent.as
+ *
+ * @brief   asynchronous socket
+ * @details
+ *
+ * @version 1.0
+ * @date    2013-07-02
+ *
+ * @author  xiehua, xiehua@baofeng.com
+ * ============================================================================
+ */
+package com.bf.ns.asynframe
+{
+	import flash.events.Event;
+	import flash.utils.ByteArray;
+
+	public class AsynTcpSocketEvent extends Event
+	{
+		public static const TCPSOCKET_CONNECT_OK: String = "AsynTcpSocke.Event.ConnectOk";
+		public static const TCPSOCKET_DISCONNECTED: String = "AsynTcpSocke.Event.Disconnect";
+		public static const TCPSOCKET_READ_DATA: String = "AsynTcpSocke.Event.ReadData";
+		public static const TCPSOCKET_SEND_DATA: String = "AsynTcpSocke.Event.SendData";
+		public var _errorCode:uint=0;
+		private var _byteString:ByteArray=null;
+
+		///constructor
+		public function AsynTcpSocketEvent(error:uint, type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		{
+			_errorCode = error;
+			super(type, bubbles, cancelable);
+		}
+
+		public function get byteString():ByteArray
+		{
+			return _byteString;
+		}
+
+		public function set byteString(value:ByteArray) : void
+		{
+			_byteString = value;
+		}
+	}
+}

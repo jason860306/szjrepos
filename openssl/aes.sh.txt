@@ -1,0 +1,43 @@
+#! /bin/bash
+# Usage: aes.sh (enc|dec) filename
+#	enc filename will encrypt the file, saving it to filename.aes
+#	dec filename will decrypt the file, striping the .aes from the filename, or just the filename.
+
+ACTION=$1
+FILENAME=$2
+
+if [ "$ACTION" = "enc" -o "$ACTION" = "dec" ]; then
+	if [ "$ACTION" = "enc" -a -e "$FILENAME" ]; then
+		openssl enc -in "$FILENAME" -out "$FILENAME.aes" -e -aes256 #Encrypt the file.
+	elif [ "$ACTION" = "dec" -a -e "$FILENAME" ]; then
+		openssl enc -in "$FILENAME" -out "${FILENAME%.*}" -d -aes256 #Decrypt the file.
+	elif [ ! -e "$FILENAME" ]; then
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\tThe file, \"$FILENAME\", does not exist."
+	else
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\tYou need to specify to encrypt(enc) or decrypt(dec)."
+	fi
+else
+	if [ -z "$ACTION" -a -z "$FILENAME" ]; then
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\t(enc|dec): 'enc' encrypts filename."
+		echo -e "\t           'dec' decrypts filename."
+		echo -e "\tfilename: path of file to perform operation on."
+	elif [ "$ACTION" != "enc" -a "$ACTION" != "dec" ]; then
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\tYou need to specify to encrypt(enc) or decrypt(dec)."
+	elif [ -n "$ACTION" -a -z "$FILENAME" ]; then 
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\tYou must supply a file to process."
+	elif [ ! -e "$FILENAME" ]; then
+		echo -e "Usage: `basename "$0"` (enc|dec) filename"
+		echo -e "\tThe file, \"$FILENAME\", does not exist."
+	else
+		echo -e "Unknown error: you should never see me!"
+		echo -e "\t\$1(Action): $ACTION"
+		echo -e "\t\$2(Filename): $FILENAME"
+	fi
+fi
+
+exit 0

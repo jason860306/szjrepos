@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.amapv2.apis"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/demo_title" >
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="请输入您在amap网站上申请的key" />
+
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".basic.BasicMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/basic_map" />
+        <activity
+            android:name=".basic.CameraActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/camera_demo" />
+        <activity
+            android:name=".basic.EventsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/events_demo" />
+        <activity
+            android:name=".basic.LayersActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/layers_demo" />
+        <activity
+            android:name=".basic.MapOptionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/mapOption_demo" />
+        <activity
+            android:name=".basic.ScreenShotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/screenshot_demo" />
+        <activity
+            android:name=".basic.OpenglActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/opengl_demo" />
+        <activity
+            android:name=".basic.UiSettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/uisettings_demo" />
+        <activity
+            android:name=".overlay.MarkerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/marker_demo" />
+        <activity
+            android:name=".overlay.PolylineActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/polyline_demo" />
+        <activity
+            android:name=".overlay.PolygonActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/polygon_demo" />
+        <activity
+            android:name=".overlay.CircleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/circle_demo" />
+        <activity
+            android:name=".location.LocationSourceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/locationsource_demo" />
+        <activity
+            android:name=".location.LocationGPSActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/locationGPS_demo" />
+        <activity
+            android:name=".location.LocationNetworkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/locationNetwork_demo" />
+        <activity
+            android:name=".geocoder.GeocoderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/geocoder_demo" />
+        <activity
+            android:name=".route.RouteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/route_demo" />
+        <activity
+            android:name=".busline.BuslineActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/busline_demo" />
+        <activity
+            android:name=".poisearch.PoiKeywordSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/poikeywordsearch_demo" />
+        <activity
+            android:name=".poisearch.PoiAroundSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/poiaroundsearch_demo" />
+        <activity
+            android:name=".offlinemap.OfflineMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/offlinemap_demo" />
+    </application>
+
+</manifest>

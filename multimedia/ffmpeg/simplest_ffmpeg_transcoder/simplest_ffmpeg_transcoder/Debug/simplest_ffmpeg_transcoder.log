@@ -1,0 +1,21 @@
+﻿Build started 2015/6/19 11:35:33.
+     1>Project "D:\projects\szj_repos\multimedia\ffmpeg\simplest_ffmpeg_transcoder\simplest_ffmpeg_transcoder\simplest_ffmpeg_transcoder.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\simplest_ffmpeg_transcoder.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+       Manifest:
+         All outputs are up-to-date.
+       FinalizeBuildStatus:
+         Deleting file "Debug\simplest_ffmpeg_transcoder.unsuccessfulbuild".
+         Touching "Debug\simplest_ffmpeg_transcoder.lastbuildstate".
+     1>Done Building Project "D:\projects\szj_repos\multimedia\ffmpeg\simplest_ffmpeg_transcoder\simplest_ffmpeg_transcoder\simplest_ffmpeg_transcoder.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.06

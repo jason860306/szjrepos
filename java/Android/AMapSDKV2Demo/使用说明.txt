@@ -1,0 +1,4 @@
+ 1.MapApiLocation.jar架包是AMap定位包，支持Android SDK2.1及以上，MapApiSearch.jar架包是AMap搜索包，支持Android SDK1.6及以上，Android_Map_V2.0.0.jar架包是AMap地图包，支持Android SDK2.2及以上libamapv3.so文件是AMap地图引擎，支持Android SDK2.2及以上；
+ 2.Demo运行时需要在项目AndroidManifest.xml文件添加权限如下<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>，在AndroidManifest.xml文件Activity声明处添加,在Android SDK4.0 及以上需要添加
+android:configChanges="orientation|keyboardHidden|screenSize"，在Android SDK4.0以下需要添加android:configChanges="orientation|keyboardHidden"；
+ 3.如果遇到问题，可以上技术支持论坛http://bbs.amap.com/forum.php。

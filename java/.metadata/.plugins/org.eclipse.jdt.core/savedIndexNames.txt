@@ -1,0 +1,6 @@
+INDEX VERSION 1.126+D:\projects\szj_repos\java\.metadata\.plugins\org.eclipse.jdt.core
+3107357453.index
+4059114251.index
+1383353576.index
+3900144352.index
+3236731746.index

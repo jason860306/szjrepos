@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.android.ide.eclipse.adt.debug.LaunchConfigType">
+<intAttribute key="com.android.ide.eclipse.adt.action" value="1"/>
+<stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.baidu.locTest.mainActivity"/>
+<stringAttribute key="com.android.ide.eclipse.adt.avd" value="microlight"/>
+<stringAttribute key="com.android.ide.eclipse.adt.commandline" value=""/>
+<intAttribute key="com.android.ide.eclipse.adt.delay" value="1"/>
+<booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="false"/>
+<intAttribute key="com.android.ide.eclipse.adt.speed" value="3"/>
+<stringAttribute key="com.android.ide.eclipse.adt.target" value="MANUAL"/>
+<booleanAttribute key="com.android.ide.eclipse.adt.wipedata" value="true"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/locSDK_4.0_Demo"/>
+<listEntry value="/locSDK_4.0_Demo/AndroidManifest.xml"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+<listEntry value="1"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.ALLOW_TERMINATE" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="locSDK_4.0_Demo"/>
+</launchConfiguration>

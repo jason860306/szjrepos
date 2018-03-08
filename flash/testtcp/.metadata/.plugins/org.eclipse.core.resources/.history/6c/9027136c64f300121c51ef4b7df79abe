@@ -1,0 +1,47 @@
+package
+{
+	import com.bf.ns.asynframe.AsynTcpSocket;
+	import com.bf.ns.asynframe.AsynTcpSocketEvent;
+
+	import flash.display.Sprite;
+
+	public class testtcp extends Sprite
+	{
+		var _socket:AsynTcpSocket = null;
+
+		public function testtcp()
+		{
+			_socket = new AsynTcpSocket("127.0.0.1", 9100);
+			_socket.open();
+
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_CONNECT_OK, onConnect );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_READ_DATA, onRead );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_DISCONNECTED, onDisconnected );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_SEND_DATA, onWrite );
+
+			//listener bind method
+			private function onDisconnected(e: *) : void
+			{
+				_connEvent.disconnected();
+			}
+
+			//listener bind method
+			private function onConnect(e: *) : void
+			{
+				_connEvent.connected();
+			}
+
+			//listener bind method
+			private function onRead(e: *) : void
+			{
+				_connEvent.dataReaded(e.byteString);
+			}
+
+			//listener bind method
+			private function onWrite(e: *) : void
+			{
+				_connEvent.dataWritten();
+			}
+		}
+	}
+}

@@ -1,0 +1,160 @@
+/**
+ * ============================================================================
+ * @file    AsynTcpSocket.as
+ *
+ * @brief   asynchronous tcp socket
+ * @details
+ *
+ * @version 1.0
+ * @date    2013-07-02
+ *
+ * @author  xiehua, xiehua@baofeng.com
+ * ============================================================================
+ */
+package
+{
+	import flash.events.ErrorEvent;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.events.UncaughtErrorEvents;
+	//import flash.events.OutputProgressEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.net.Socket;
+	import flash.utils.ByteArray;
+
+	//asynchronous tcp socket
+	public class AsynTcpSocket extends EventDispatcher
+	{
+		private var _socket:Socket=null;
+		private var _host:String=null;
+		private var _port:uint=0;
+
+		///constructor
+		public function AsynTcpSocket( addr:String, port:uint )
+		{
+			_host = addr;
+			_port = port;
+		}
+
+		/**
+		 * open tcp connection.
+		 * @no param
+		 * @no return
+		 */
+		public function open() : void
+		{
+			if ( !_socket )
+			{
+				_socket = new Socket();
+			}
+
+			connect(_host, _port);
+			trace('[AsynTcpSocket]try to connect ' + _host );
+		}
+
+		/**
+		 * send data.
+		 * @param[in] byteString, data to be sent.
+		 * @no return
+		 */
+		public function send( byteString:ByteArray ) : void
+		{
+			try{
+			_socket.writeBytes(byteString);
+			_socket.flush();
+			}
+			catch(e:*)
+			{
+				trace("error: " + e.text);
+			}
+		}
+
+		/**
+		 * close tcp connection.
+		 * @no param
+		 * @no return
+		 */
+		public function close() : void
+		{
+			trace('[AsynTcpSocket]close socket.');
+			_socket.close();
+
+			_socket.removeEventListener( Event.CONNECT, onConnect );
+			_socket.removeEventListener( Event.CLOSE, onClose);
+			_socket.removeEventListener( IOErrorEvent.IO_ERROR, onError );
+			_socket.removeEventListener( ProgressEvent.SOCKET_DATA, onRecvData );
+
+		//	var loaderInfo:LoaderInfo = new LoaderInfo();
+		//	loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
+			//_socket.removeEventListener( OutputProgressEvent.OUTPUT_PROGRESS, onSendData );
+
+			_socket = null;
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		private function connect( addr:String, port:uint ) : void
+		{
+			try
+			{
+				_socket.connect(addr, port);
+				_socket.addEventListener( Event.CONNECT, onConnect ); //监听连接成功事件
+				_socket.addEventListener( Event.CLOSE, onClose);	//监听对方关闭连接事件
+				_socket.addEventListener( IOErrorEvent.IO_ERROR, onError ); //监听I/O错误事件
+				_socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onError ); //监听I/O错误事件
+				_socket.addEventListener( ProgressEvent.SOCKET_DATA, onRecvData ); //监听是否有数据到达
+				//_socket.addEventListener( OutputProgressEvent.OUTPUT_PROGRESS, onSendData ); //监听数据发送成功事件
+			}
+			catch(e:ErrorEvent)
+			{
+				trace("[AsynTcpSocket] _socket.error");
+				onClose( e );
+			}
+		}
+
+		private function onConnect( event:Event ) : void
+		{
+			trace('[AsynTcpSocket]connected.');
+			dispatchEvent(new AsynTcpSocketEvent(0, AsynTcpSocketEvent.TCPSOCKET_CONNECT_OK));
+		}
+
+		private function onClose( event:Event ) : void
+		{
+			trace('[AsynTcpSocket]remote host closed the connection.');
+			dispatchEvent(new AsynTcpSocketEvent(0, AsynTcpSocketEvent.TCPSOCKET_DISCONNECTED));
+			close();
+		}
+
+		private function onError( event:Event ) : void
+		{
+			trace('[AsynTcpSocket]input/output error occurs that causes a send or load operation to fail: ' + ( event as IOErrorEvent ).text);
+			dispatchEvent(new AsynTcpSocketEvent(0, AsynTcpSocketEvent.TCPSOCKET_DISCONNECTED));
+			close();
+		}
+
+		private function onRecvData( event:ProgressEvent ) : void
+		{
+			trace('[AsynTcpSocket]Socket received ' + _socket.bytesAvailable + ' byte(s) of data:' );
+
+			if (_socket.bytesAvailable <= 0)
+			{
+				return;
+			}
+
+			var ba:ByteArray = new ByteArray();
+			_socket.readBytes(ba, 0);
+			trace('get socket read data len: ' + ba.length);
+
+			var e:AsynTcpSocketEvent = new AsynTcpSocketEvent(0, AsynTcpSocketEvent.TCPSOCKET_READ_DATA);
+			e.byteString = ba;
+			dispatchEvent(e);
+		}
+
+		private function onSendData( event:Event ) : void
+		{
+			trace('[AsynTcpSocket]data is sent: ');
+			dispatchEvent(new AsynTcpSocketEvent(0, AsynTcpSocketEvent.TCPSOCKET_SEND_DATA));
+		}
+	}
+}

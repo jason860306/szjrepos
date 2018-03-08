@@ -1,0 +1,110 @@
+package
+{
+	import flash.display.LoaderInfo;
+	import flash.display.Sprite;
+	import flash.events.UncaughtErrorEvent;
+	import flash.events.UncaughtErrorEvents;
+	import flash.utils.ByteArray;
+
+	public class testtcp extends Sprite
+	{
+		private var _socket:AsynTcpSocket = null;
+
+		public function testtcp()
+		{
+			_socket = new AsynTcpSocket("127.0.0.1", 9100);
+			_socket.open();
+
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_CONNECT_OK, onConnect );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_READ_DATA, onRead );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_DISCONNECTED, onDisconnected );
+			_socket.addEventListener( AsynTcpSocketEvent.TCPSOCKET_SEND_DATA, onWrite );
+
+			loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
+
+			var ip:String = "192.168.3.2";
+			var iplong:uint = str2inetAddrLong(ip);
+			trace("ip long: " + iplong);
+			trace("ip string: " + inetAddrLong2ip(iplong));
+		}
+
+
+		public function onUncaughtError() : void
+		{
+			trace("UncaughtErrorEvent");
+		}
+
+		//listener bind method
+		private function onDisconnected(e: *) : void
+		{
+
+		}
+
+		//listener bind method
+		private function onConnect(e: *) : void
+		{
+			var ba:ByteArray = new ByteArray();
+			var n:uint = 0;
+			/*while(true)
+			{
+				if(n == 3821)
+				{
+					trace("3821");
+				}
+				trace("send data..." + n);
+				ba.writeMultiByte("无法解析的外部符号 __imp__closesocket@4，该符号在函数 _wmain 中被引用无法解析的外部符号 __imp__closesocket@4，该符号在函数 _wmain 中被引用无法解析的外部符号 __imp__closesocket@4，该符号在函数 _wmain 中被引用", "iso-8859-1");
+				_socket.send(ba);
+				n++;
+			}*/
+		}
+
+		//listener bind method
+		private function onRead(e: *) : void
+		{
+			//_connEvent.dataReaded(e.byteString);
+		}
+
+		//listener bind method
+		private function onWrite(e: *) : void
+		{
+			//_connEvent.dataWritten();
+		}
+
+		public static function str2inetAddrLong(ip:String):uint
+		{
+			var  num:uint = 0;
+			var sections:Array = ip.split(".");
+			var len:int=sections.length;
+			if(len==4){
+				for(var i:int=0;i<len;i++){
+					num+=uint(sections[i])<<((len-1-i)*8)
+				}
+				return num;
+			}
+			return 0xffffffff;
+		}
+
+		public static function inetAddrLong2ip(num:uint):String
+		{
+			/*var str:String = "";
+			var tmp:uint = 0;
+			for(var i:int=3;i>=0;i--)
+			{
+				tmp = (num>>8*i)&0xff;
+				str += tmp.toString();
+				if(i!=0)
+				{
+					str += ".";
+				}
+			}
+
+			return str;*/
+			var ipArr:Array=["0","0","0","0"];
+			ipArr[0]=(ipstr>>24)&0xFF;
+			ipArr[1]=(ipstr>>16)&0xFF;
+			ipArr[2]=(ipstr>>8)&0xFF;
+			ipArr[3]=ipstr&0xFF;
+			return ipArr.join(".");
+		}
+	}
+}

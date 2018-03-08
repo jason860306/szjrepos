@@ -1,0 +1,44 @@
+///////////////////////////////////////////////////////////////////////////////
+// logger.h
+///////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#include "global_defs.h"
+#include "classes.h"
+#include "exceptions.h"
+
+///////////////////////////////////////////////////////////////////////////////
+// logger
+
+class logger : public singleton<logger>
+{
+public:
+	void write(const char *format, ...);
+	void write(const string& str);
+	void write(const base_exception& e);
+
+private:
+	logger();
+
+private:
+	void write_to_file(const string& str);
+	string get_timestamp_str();
+
+private:
+	friend class singleton<logger>;
+
+	string _file_name;
+	mutex _mutex;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// macros
+
+#ifdef _DEBUG
+#define LOG(s) logger::instance().write(s)
+#else
+#define LOG(s)
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
